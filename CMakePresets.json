@@ -1,0 +1,106 @@
+{
+  "version": 6,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 22,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "release",
+      "hidden": true,
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "cacheVariables": {
+        "BUILD_SHARED_LIBS": "True",
+        "BENCHMARK_DOWNLOAD_DEPENDENCIES": "True",
+        "BENCHMARK_ENABLE_GTEST_TESTS": "False",
+        "BENCHMARK_ENABLE_INSTALL": "False",
+        "BENCHMARK_ENABLE_TESTING": "False",
+        "BENCHMARK_INSTALL_DOCS": "False"
+      }
+    },
+    {
+      "name": "gcc-release",
+      "inherits": "release",
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "/usr/bin/gcc",
+        "CMAKE_C_FLAGS": "-Wall -Wpedantic -O2 -DNDEBUG -ftree-vectorize -fassociative-math -fno-trapping-math -fno-math-errno -fno-signed-zeros -funroll-loops",
+        "CMAKE_CXX_COMPILER": "/usr/bin/g++",
+        "CMAKE_CXX_FLAGS": "-Wall -Wpedantic -O2 -DNDEBUG -ftree-vectorize -fassociative-math -fno-trapping-math -fno-math-errno -fno-signed-zeros -funroll-loops"
+      }
+    },
+    {
+      "name": "gcc-release-native",
+      "inherits": "gcc-release",
+      "cacheVariables": {
+        "CMAKE_C_FLAGS": "-Wall -Wpedantic -O2 -DNDEBUG -ftree-vectorize -fassociative-math -fno-trapping-math -fno-math-errno -fno-signed-zeros -funroll-loops -march=native",
+        "CMAKE_CXX_FLAGS": "-Wall -Wpedantic -O2 -DNDEBUG -ftree-vectorize -fassociative-math -fno-trapping-math -fno-math-errno -fno-signed-zeros -funroll-loops -march=native"
+      }
+    },
+    {
+      "name": "clang-release",
+      "inherits": "release",
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "/usr/bin/clang",
+        "CMAKE_C_FLAGS": "-Wall -Wpedantic -O2 -DNDEBUG -ftree-vectorize -fassociative-math -fno-trapping-math -fno-math-errno -fno-signed-zeros -funroll-loops",
+        "CMAKE_CXX_COMPILER": "/usr/bin/clang++",
+        "CMAKE_CXX_FLAGS": "-Wall -Wpedantic -O2 -DNDEBUG -ftree-vectorize -fassociative-math -fno-trapping-math -fno-math-errno -fno-signed-zeros -funroll-loops"
+      }
+    },
+    {
+      "name": "clang-release-native",
+      "inherits": "clang-release",
+      "cacheVariables": {
+        "CMAKE_C_FLAGS": "-Wall -Wpedantic -O2 -DNDEBUG -ftree-vectorize -fassociative-math -fno-trapping-math -fno-math-errno -fno-signed-zeros -funroll-loops -march=native",
+        "CMAKE_CXX_FLAGS": "-Wall -Wpedantic -O2 -DNDEBUG -ftree-vectorize -fassociative-math -fno-trapping-math -fno-math-errno -fno-signed-zeros -funroll-loops -march=native"
+      }
+    },
+    {
+      "name": "msvc-release",
+      "inherits": "release",
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "cl.exe",
+        "CMAKE_C_FLAGS": "/Wall /O2 /fp:fast",
+        "CMAKE_CXX_COMPILER": "cl.exe",
+        "CMAKE_CXX_FLAGS": "/Wall /O2 /fp:fast",
+        "CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS": "True"
+      }
+    },
+    {
+      "name": "msvc-release-native",
+      "inherits": "msvc-release",
+      "cacheVariables": {
+        "CMAKE_C_FLAGS": "/Wall /O2 /fp:fast /arch:AVX512",
+        "CMAKE_CXX_FLAGS": "/Wall /O2 /fp:fast /arch:AVX512"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "gcc-release",
+      "configurePreset": "gcc-release"
+    },
+    {
+      "name": "gcc-release-native",
+      "configurePreset": "gcc-release-native"
+    },
+    {
+      "name": "clang-release",
+      "configurePreset": "clang-release"
+    },
+    {
+      "name": "clang-release-native",
+      "configurePreset": "clang-release-native"
+    },
+    {
+      "name": "msvc-release",
+      "configurePreset": "msvc-release",
+      "configuration": "Release"
+    },
+    {
+      "name": "msvc-release-native",
+      "configurePreset": "msvc-release-native",
+      "configuration": "Release"
+    }
+  ]
+}
